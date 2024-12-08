@@ -1,27 +1,29 @@
 import mongoose from 'mongoose';
 
-// 화성 날씨 스키마 정의
-const marsWeatherSchema = new mongoose.Schema({
-  sol: { type: String, required: true, unique: true }, // 화성의 Sol
-  temperature: {
-    average: Number,
-    min: Number,
-    max: Number,
-  },
-  pressure: {
-    average: Number,
-    min: Number,
-    max: Number,
-  },
-  wind: {
-    direction: String,
-    speed: Number,
-  },
-  createdAt: { type: Date, default: Date.now }, // 데이터 저장 시간
-});
+const MarsWeatherSchema = new mongoose.Schema(
+    {
+        sol: { type: String, required: true, unique: true },
+        AT: {
+            av: Number, // 평균 온도
+            mn: Number, // 최저 온도
+            mx: Number, // 최고 온도
+        },
+        HWS: {
+            av: Number, // 평균 풍속
+            mn: Number, // 최저 풍속
+            mx: Number, // 최고 풍속
+        },
+        PRE: {
+            av: Number, // 평균 대기압
+            mn: Number,
+            mx: Number,
+        },
+        Season: String, // 계절
+        First_UTC: Date, // 데이터 수집 시작 시간
+        Last_UTC: Date,  // 데이터 수집 종료 시간
+    },
+    { timestamps: true } // 생성 및 수정 시간 자동 기록
+);
 
-// 모델 생성
-const MarsWeather = mongoose.model('MarsWeather', marsWeatherSchema);
-
-// 모델 내보내기
+const MarsWeather = mongoose.model('MarsWeather', MarsWeatherSchema);
 export default MarsWeather;

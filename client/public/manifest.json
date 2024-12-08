@@ -1,22 +1,38 @@
 {
     "manifest_version": 3,
-    "name": "Run script automatically",
-    "description": "Runs a script on www.example.com automatically when user installs the extension",
+    "name": "Cosmic Insight",
+    "description": "NASA 및 Weather API를 활용하는 동적 배경/날씨 비교 확장앱",
     "version": "1.0",
-    "icons": {
-      "16": "images/icon-16.png",
-      "32": "images/icon-32.png",
-      "48": "images/icon-48.png",
-      "128": "images/icon-128.png"
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+      }
     },
+    "background": {
+      "service_worker": "background.js"
+    },
+    "permissions": [
+      "storage",
+      "geolocation"
+    ],
+    "host_permissions": [
+      "https://your-backend.com/*"
+    ],
     "content_scripts": [
       {
-        "js": [
-          "content-script.js"
-        ],
-        "matches": [
-          "http://*.example.com//"
-        ]
+        "matches": ["<all_urls>"],
+        "js": ["content.js"]
       }
-    ]
+    ],
+    "icons": {
+      "16": "icons/cosmic-icon.png",
+      "48": "icons/cosmic-icon.png",
+      "128": "icons/cosmic-icon.png"
+    },
+    "content_security_policy": {
+      "extension_pages": "script-src 'self'; object-src 'self';"
+    }
   }

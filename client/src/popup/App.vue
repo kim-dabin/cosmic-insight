@@ -7,8 +7,8 @@
 
 <script>
 // import NasaData from './components/NasaData.vue';
-import HomeViewer  from './components/Home.vue';
-import Weather from './components/Weather.vue';
+import HomeViewer  from '../components/Home.vue';
+import Weather from '../components/Weather.vue';
 
 export default {
   name: 'App',

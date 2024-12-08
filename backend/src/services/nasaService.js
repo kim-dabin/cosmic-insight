@@ -1,5 +1,8 @@
 import 'dotenv/config'
 import APOD from "../models/APOD.js";
+import { getInsightWeatherData } from '../services/apiService.js';
+import { saveMarsWeatherToDB, getMarsWeatherBySeason } from '../repositories/nasaRepository.js';
+import { getEarthSeason } from '../utils/helps.js';
 
 export async function getRandomImage() {
   try {
@@ -14,6 +17,38 @@ export async function getRandomImage() {
     }
   } catch (error) {
     console.error('랜덤 이미지 가져오기 실패:', error);
+    throw error;
+  }
+}
+
+export const getMarsEarthWeatherData = async (latitude, longitude) => {
+  try {
+    const { latitude, longitude } = req.body;
+    if (!latitude || !longitude) {
+      return res.status(400).json({ error: '위도와 경도 값이 필요합니다.' });
+    }
+    // 현재 위치 날씨 가져오기
+    const earthWeatherData = await getInsightWeatherData(latitude, longitude);
+
+    // 현재 계절 찾기
+    const season = await getEarthSeason(latitude);
+
+    // 현재 계절과 맞는 화성 날씨 가져오기
+    const marsWeatherData = await getMarsWeatherBySeason(season);
+
+    console.log();
+
+  } catch (error) {
+
+  }
+}
+
+export const getMarsData2Mongo = async () => {
+  try {
+    const data = await getInsightWeatherData();
+    saveMarsWeatherToDB(data);
+  } catch (error) {
+    console.error('Mars 데이터 수집 실패:', error);
     throw error;
   }
 }
