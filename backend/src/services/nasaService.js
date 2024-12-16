@@ -21,14 +21,15 @@ export async function getRandomImage() {
   }
 }
 
+// 현재 위치의 날씨와 유사한 화성 날씨 가져오기 
 export const getMarsEarthWeatherData = async (latitude, longitude) => {
   try {
-    const { latitude, longitude } = req.body;
+    // const { latitude, longitude } = req.body;
     if (!latitude || !longitude) {
       return res.status(400).json({ error: '위도와 경도 값이 필요합니다.' });
     }
     // 현재 위치 날씨 가져오기
-    const earthWeatherData = await getInsightWeatherData(latitude, longitude);
+    const earthWeatherData = await getLocationWeatherData(latitude, longitude);
 
     // 현재 계절 찾기
     const season = await getEarthSeason(latitude);
@@ -36,13 +37,14 @@ export const getMarsEarthWeatherData = async (latitude, longitude) => {
     // 현재 계절과 맞는 화성 날씨 가져오기
     const marsWeatherData = await getMarsWeatherBySeason(season);
 
-    console.log();
+    console.log(marsWeatherData);
 
   } catch (error) {
 
   }
 }
 
+// Mars 날씨 데이터를 몽고디비에 저장
 export const getMarsData2Mongo = async () => {
   try {
     const data = await getInsightWeatherData();

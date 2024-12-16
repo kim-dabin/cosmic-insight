@@ -10,6 +10,7 @@ export const getApodImage = async (req, res) => {
   }
 };
 
+// Mars Weather를 몽고디비에 저장
 export const loadMarsWeather2DB = async (req, res) => {
   try {
     console.log('Loading');
@@ -20,7 +21,18 @@ export const loadMarsWeather2DB = async (req, res) => {
   }
 };
 
+// 날씨를 가져온다
 export const getWeather = async (req, res) => {
-
+  try {
+    const { latitude, longitude } = req.body;
+    // 몽고디비에서 Mars 날씨 데이터를 가져온다
+    const marsWeatherData = await getLocationWeatherData(latitude, longitude);
+    // 현재 위치의 날씨를 가져온다
+    const earthWeatherData = await getLocationWeatherData(latitude, longitude);
+    console.log(data);
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+  }
 };
 

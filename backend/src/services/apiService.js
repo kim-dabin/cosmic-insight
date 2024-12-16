@@ -24,7 +24,7 @@ export const getAstronomyPictureOfTheDay = async () => {
   }
 };
 
-
+// Mars Weather Data를 가져온다
 export const getInsightWeatherData = async () => {
   try {
     const response = await axios.get(`${NASA_BASE_URL}/insight_weather/`, {
@@ -51,6 +51,7 @@ export const getLocationWeatherData = async (latitude, longitude) => {
                 units: 'metric',
             }
         });
+        return response.data;
     } catch (error) {
         console.error('Open Weather API 호출 에러:', error.message);
         throw error;
