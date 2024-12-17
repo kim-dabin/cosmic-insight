@@ -41,6 +41,7 @@ export const getInsightWeatherData = async () => {
   }
 };
 
+// 현재 위치 기반으로 open weather API를 이용하여 날씨 데이터를 가져온다
 export const getLocationWeatherData = async (latitude, longitude) => {
     try {
         const response = await axios.get(`${OPEN_WEATHER_URL}/data/2.5/weather`, {
