@@ -35,9 +35,9 @@ export const getMarsEarthWeatherData = async (latitude, longitude) => {
     // 현재 계절과 맞는 화성 날씨 가져오기
     const marsWeatherData = await getMarsWeatherBySeason(season);
 
-    console.log(marsWeatherData);
-
+    return marsWeatherData;
   } catch (error) {
+    console.error('화성 날씨 데이터 가져오기 실패:', error);
 
   }
 }

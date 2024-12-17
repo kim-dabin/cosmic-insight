@@ -3,7 +3,7 @@ import axios from "axios";
 const NASA_BASE_URL = 'https://api.nasa.gov';
 const OPEN_WEATHER_URL = 'https://api.openweathermap.org'
 const NASA_API_KEY =  process.env.NASA_API_KEY;
-const OPENWEATHER_API_KEY = process.env.OPENWEATHER_API_KEY;
+const OPENWEATHER_API_KEY = process.env.OPENWEATHER_API_KEY; //7b0a3a43be59dca5245a8a7fc99396c6
 
 // NASA API 예시 함수: Astronomy Picture of the Day (APOD)
 export const getAstronomyPictureOfTheDay = async () => {
@@ -44,6 +44,7 @@ export const getInsightWeatherData = async () => {
 // 현재 위치 기반으로 open weather API를 이용하여 날씨 데이터를 가져온다
 export const getLocationWeatherData = async (latitude, longitude) => {
     try {
+      console.log('위도:', latitude, '경도:', longitude);
         const response = await axios.get(`${OPEN_WEATHER_URL}/data/2.5/weather`, {
             params: {
                 appid: OPENWEATHER_API_KEY,

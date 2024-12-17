@@ -9,7 +9,7 @@ connectDB().catch(console.dir);
 
 const app = express();
 app.use(cors());
-
+app.use(express.json());
 app.use('/api/nasa', nasaRoutes);
 // app.use('/api/weather', );
 
