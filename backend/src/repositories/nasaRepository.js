@@ -23,12 +23,37 @@ export const saveApodsToDB = async (data) => {
 export const getMarsWeatherBySeason = async (season) => {
   try {
       const data = await MarsWeather.find({ Season: season });
+      console.log(data.length);
       return data;
   } catch (error) {
       console.error('화성 날씨 데이터를 가져오는 데 실패했습니다:', error.message);
       throw error;
   }
 };
+
+
+/**
+ * MongoDB에서 최신 Sol 데이터를 가져오는 함수
+ * @returns {object} 최신 Sol 데이터
+ */
+export const getLatestMarsWeather = async () => {
+    try {
+        const latestData = await MarsWeather.findOne()
+            .sort({ sol: -1 }) // 최신 Sol 번호 기준으로 정렬
+            .exec(); // 쿼리 실행
+
+        if (!latestData) {
+            throw new Error('화성 날씨 데이터가 존재하지 않습니다.');
+        }
+
+        console.log('✅ 최신 화성 날씨 데이터를 가져왔습니다:', latestData);
+        return latestData;
+    } catch (error) {
+        console.error('❌ 최신 화성 날씨 데이터를 가져오는 중 오류 발생:', error.message);
+        throw error;
+    }
+};
+
 
 export const saveMarsWeatherToDB = async (marsData) => {
   const solKeys = marsData.sol_keys;

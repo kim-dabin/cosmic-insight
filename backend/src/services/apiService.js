@@ -53,6 +53,7 @@ export const getLocationWeatherData = async (latitude, longitude) => {
                 units: 'metric',
             }
         });
+        console.log(response.data);
         return response.data;
     } catch (error) {
         console.error('Open Weather API 호출 에러:', error.message);

@@ -1,8 +1,7 @@
 import 'dotenv/config'
 import APOD from "../models/APOD.js";
-import MarsWeather from '../models/MarsWeather.js';
 import { getInsightWeatherData } from '../services/apiService.js';
-import { saveMarsWeatherToDB, getMarsWeatherBySeason } from '../repositories/nasaRepository.js';
+import { saveMarsWeatherToDB, getMarsWeatherBySeason, getLatestMarsWeather } from '../repositories/nasaRepository.js';
 import { getEarthSeason } from '../utils/helps.js';
 
 export async function getRandomImage() {
@@ -33,9 +32,12 @@ export const getMarsEarthWeatherData = async (latitude, longitude) => {
     const season = await getEarthSeason(latitude);
 
     // 현재 계절과 맞는 화성 날씨 가져오기
-    const marsWeatherData = await getMarsWeatherBySeason(season);
+    let marsWeatherData = await getMarsWeatherBySeason(season);
+    if (marsWeatherData.length < 1) {
+      marsWeatherData = await getLatestMarsWeather();
+    }
 
-    return marsWeatherData;
+    return marsWeatherData
   } catch (error) {
     console.error('화성 날씨 데이터 가져오기 실패:', error);
 

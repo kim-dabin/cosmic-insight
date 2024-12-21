@@ -32,9 +32,6 @@ export const getWeather = async (req, res) => {
     const marsWeatherData = await getMarsEarthWeatherData(latitude, longitude);
     // 현재 위치의 날씨를 가져온다
     const earthWeatherData = await getLocationWeatherData(latitude, longitude);
-    console.log("*****************");
-    console.log(marsWeatherData);
-    console.log("*****************");
 
     res.json({"mars": marsWeatherData, "earth": earthWeatherData});
   } catch (err) {

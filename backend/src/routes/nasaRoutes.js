@@ -6,6 +6,5 @@ const router = express.Router();
 router.get('/apod', checkImageMiddleware, getApodImage);
 router.get('/load/mars-weather', loadMarsWeather2DB);
 router.post('/insight/weather', getWeather);
-// router.get('/weather', );
 
 export default router;
